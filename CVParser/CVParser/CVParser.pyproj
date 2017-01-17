@@ -43,6 +43,7 @@
     <Folder Include="CVParser\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CVParser\data.json" />
     <Content Include="requirements.txt" />
     <Content Include="CVParser\static\content\bootstrap.css" />
     <Content Include="CVParser\static\content\bootstrap.min.css" />

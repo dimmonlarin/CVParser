@@ -24,7 +24,13 @@
 <script>
     $("#btnParse").on("click", function () {
         var jsonStr = $("#txtJson").val();
-        html = parseJsonString(JSON.parse(jsonStr));
+        try{
+            html = parseJsonString(JSON.parse(jsonStr));
+        }
+        catch(e) {
+            console.log(e);
+            html = "Oops! something is wrong... Check you json?"
+        }
         $("#parsedData").html(html);
     })
 
@@ -40,5 +46,4 @@
         return html;
     }
 </script>
-
 {% endblock %}

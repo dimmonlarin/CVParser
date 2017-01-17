@@ -2,26 +2,43 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Flask gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://flask.pocoo.org/docs/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.python.org/pypi">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Python Tools for Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+<div class="container-fluid">
+    <div class="row">
+        <div>
+            <h4>Input JSON:</h4>
+            <textarea id="txtJson" rows="10" style="width:100%; max-width: 100%"></textarea>
+        </div>
+        <div>
+            <button id="btnParse" type="button" class="btn btn-primary">Parse</button>
+        </div>
+        <div id="parsedData">
+
+        </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    $("#btnParse").on("click", function () {
+        var jsonStr = $("#txtJson").val();
+        html = parseJsonString(JSON.parse(jsonStr));
+        $("#parsedData").html(html);
+    })
+
+    function parseJsonString(jsonObj, headerWeight=1) {
+        if (!$.isPlainObject(jsonObj))
+            return jsonObj;
+
+        var html = "";
+        for (var val in jsonObj) {
+            html += "<h" + headerWeight + ">" + val + "</h" + headerWeight + ">"
+            html += "<p>" + parseJsonString(jsonObj[val], headerWeight + 1) + "</p>";
+        }
+        return html;
+    }
+</script>
 
 {% endblock %}
